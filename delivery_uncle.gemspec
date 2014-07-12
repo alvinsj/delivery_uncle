@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Alvin S.J. Ng"]
   s.email       = ["email.to.alvin@gmail.com"]
   s.homepage    = "http://github.com/alvinsj/delivery_uncle"
-  s.summary     = "A Rails Engine that you can hired to manage emailing"
-  s.description = "A Rails Engine that you can hired to manage emailing"
+  s.summary     = "Rails Engine that you can hire to manage your outgoing email"
+  s.description = "Rails Engine that you can hire to manage your outgoing email"
   s.license     = "MIT"
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
