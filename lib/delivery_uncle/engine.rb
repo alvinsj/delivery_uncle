@@ -2,8 +2,8 @@ module DeliveryUncle
   class Engine < ::Rails::Engine
     isolate_namespace DeliveryUncle
 
-    config.autoload_paths << File.expand_path("../app/services", __FILE__)
     config.autoload_paths << File.expand_path("../app/workers", __FILE__)
+    config.autoload_paths << File.expand_path("../app/services", __FILE__)
 
     config.generators do |g|
       g.test_framework :rspec, fixture: false
