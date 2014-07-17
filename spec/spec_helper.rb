@@ -14,7 +14,7 @@ RSpec.configure do |config|
   config.order = "random"
   config.include FactoryGirl::Syntax::Methods
   
-    REDIS_PID = "#{Rails.root}/tmp/pids/redis-test.pid"
+  REDIS_PID = "#{Rails.root}/tmp/pids/redis-test.pid"
   REDIS_CACHE_PATH = "#{Rails.root}/tmp/cache/"
 
   config.before(:suite) do
@@ -42,3 +42,5 @@ RSpec.configure do |config|
     }
   end
 end
+
+ActiveRecord::Migrator.migrate(File.join(Rails.root, 'db/migrate'))
