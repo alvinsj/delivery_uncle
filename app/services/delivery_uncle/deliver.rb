@@ -8,7 +8,7 @@ module DeliveryUncle
       @request.mail_body = mail.to_s
       @request.mailer = mailer.to_s
       @request.mailer_method = mailer_method
-      @request.status = :preparing
+      @request.status = :new
       @request.mail_type = :deliver
       @request.request_from = caller[1][/`.*'/][1..-2]
  
@@ -21,10 +21,7 @@ module DeliveryUncle
 
     private
     def deliver(request)
-      Resque.enqueue(DeliveryUncle::SendEmailRequest, request.id) 
-        
-      request.status = :queued
-      request.save
+      EmailQueue.change_status(request, :queued)
     end
 
   end
