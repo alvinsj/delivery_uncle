@@ -21,8 +21,7 @@ module DeliveryUncle
 
     private
     def deliver(request)
-      EmailQueue.change_status(request, :queued)
+      EmailQueue.queue(request)
     end
-
   end
 end

@@ -5,8 +5,8 @@ describe DeliveryUncle::EmailQueue do
 
   context 'change_status' do
     it 'should change request status' do
-      DeliveryUncle::EmailQueue.change_status(email_request, :new)
-      expect(email_request.status).to eql(:new)
+      DeliveryUncle::EmailQueue.pause(email_request)
+      expect(email_request.status).to eql(:paused)
     end
   end
 end 
