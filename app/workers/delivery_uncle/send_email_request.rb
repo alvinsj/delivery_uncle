@@ -14,7 +14,10 @@ module DeliveryUncle
       @queue = "delivery_uncle:#{request.mail_type}" if request.mail_type
       
       begin 
-        request.mail.deliver
+        mail = request.mail
+        method = ActionMailer::Base.delivery_method
+        mail.delivery_method method, ActionMailer::Base.send(:"#{method}_settings")
+        mail.deliver
         change_status(request, :sent)
       rescue
         change_status(request, :error_when_deliver)
