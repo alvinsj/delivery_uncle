@@ -7,6 +7,8 @@ module DeliveryUncle
 
     def self.perform(request_id)
       request = DeliveryUncle::EmailRequest.find(request_id)
+      
+      return if request.paused?
       change_status(request, :processing)
       
       @queue = "delivery_uncle:#{request.mail_type}" if request.mail_type
