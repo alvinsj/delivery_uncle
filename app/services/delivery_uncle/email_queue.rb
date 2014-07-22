@@ -33,7 +33,6 @@ module DeliveryUncle
     class RetryRequest
       def initialize(request)
         QueueRequest.new(request)
-        request.retry_count += request.retry_count
       end
     end  
   end
