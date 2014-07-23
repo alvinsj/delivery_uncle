@@ -2,15 +2,21 @@ module DeliveryUncle
   class EmailQueue
     module ClassMethods
       def queue(request)
+        return if request.sent?
+        
         QueueRequest.new(request)
         save_status(request, :queued)
       end
 
       def pause(request)
+        return if request.sent?
+        
         save_status(request, :paused)
       end
 
       def retry(request)
+        return if request.sent?
+        
         save_status(request, :retrying)
         RetryRequest.new(request)
         save_status(request, :queued)
