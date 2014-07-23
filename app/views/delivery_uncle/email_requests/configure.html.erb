@@ -1,0 +1,25 @@
+<h1>Configure</h1>
+
+<% if message = flash[:error] %>
+  <div>
+    <strong style="color: red;">Error: <%= message %></strong>
+  </div>
+<% end %>
+
+<div>
+<%= form_tag({action: :block, method: :post}, multipart: true) do %>
+  <b>Block Mailer:</b>
+  <br><%=select_tag(:mailer, options_for_select(@mailers)) %>
+  <br><%= submit_tag 'Block', class: 'btn', confirm: 'The chosen mailer will not be blocked, Continue?'%>
+<% end %>
+</div>
+
+<div>  
+<%= form_tag({action: :unblock, method: :post}, multipart: true) do %>
+  <b>Unblock Mailer:</b>
+  <br><%=select_tag(:mailer, options_for_select(@blocked_mailers)) %>
+  <br><%= submit_tag 'Unblock', class: 'btn', confirm: 'The chosen mailer will be unblocked, Continue?'%>
+<% end %>
+</div>
+
+<%=link_to '< back to mails', action: :index %> 

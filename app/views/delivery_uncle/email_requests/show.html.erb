@@ -1,0 +1,8 @@
+<h1>
+  <%="#{@request.mailer}::#{@request.mailer_method}" %> (id: <%=@request.id%>)
+</h1>
+
+<div>
+<%=simple_format(@request.mail.body.decoded) %>
+</div>
+<%=link_to '< back to mails', action: :index %>
