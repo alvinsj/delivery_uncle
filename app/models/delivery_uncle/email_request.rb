@@ -8,7 +8,11 @@ module DeliveryUncle
     end
     
     def paused?
-      status == 'paused'
+      status == :paused || status == 'paused'
+    end
+
+    def sent?
+      status == :sent || status == 'sent'
     end
   end
 end
