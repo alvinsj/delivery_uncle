@@ -1,4 +1,3 @@
-module DeliveryUncle
-  class ApplicationController < ActionController::Base
-  end
+class DeliveryUncle::ApplicationController < ApplicationController
+  MAILERS = []
 end

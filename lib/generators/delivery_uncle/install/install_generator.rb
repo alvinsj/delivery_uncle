@@ -18,6 +18,7 @@ module DeliveryUncle
 
       def copy_migrations
         migration_template "create_table_email_requests.rb", "db/migrate/create_table_email_requests.rb"
+        migration_template "create_table_activities.rb", "db/migrate/create_table_activities.rb"
       end
     end
   end

@@ -3,12 +3,14 @@ module DeliveryUncle
     
     def initialize(mailer, mailer_method, *args)
       mail = mailer.send(mailer_method, *args)
-       
-      @request = DeliveryUncle::EmailRequest.new
+      
+      raise 'mail with attachment is not supported yet' if mail.has_attachments? 
+      
+      @request = DeliveryUncle::EmailRequest.new  
       @request.mail_body = mail.to_s
       @request.mailer = mailer.to_s
       @request.mailer_method = mailer_method
-      @request.status = :preparing
+      @request.status = :new
       @request.mail_type = :deliver
       @request.request_from = caller[1][/`.*'/][1..-2]
  
@@ -21,11 +23,7 @@ module DeliveryUncle
 
     private
     def deliver(request)
-      Resque.enqueue(DeliveryUncle::SendEmailRequest, request.id) 
-        
-      request.status = :queued
-      request.save
+      EmailQueue.queue(request)
     end
-
   end
 end
