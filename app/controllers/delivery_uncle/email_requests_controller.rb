@@ -19,6 +19,7 @@ module DeliveryUncle
     def pause_all
       if email_request.present?
         EmailRequest.
+          not_sent.
           with_mailer_method(email_request.mailer, email_request.mailer_method).
           each do |entry|
             EmailQueue.pause(entry)
@@ -35,6 +36,7 @@ module DeliveryUncle
     def retry_all
       if email_request.present?
         EmailRequest.
+          not_sent.
           with_mailer_method(email_request.mailer, email_request.mailer_method).
           each do |entry|
             EmailQueue.retry(entry)
