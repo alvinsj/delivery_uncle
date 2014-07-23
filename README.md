@@ -3,8 +3,8 @@
 DeliveryUncle (Rails Engine) that you can hire to manage outgoing email.
 
 - Provides a facade to manage various action_mailer.
-- Sending email in background.
-- Support scheduled email.
+- Sending email in background (currently with Resque).
+- Provides an UI to manage(pause/retry) queued emails.
 - .. etc
 
 ## Setup
@@ -16,7 +16,7 @@ DeliveryUncle (Rails Engine) that you can hire to manage outgoing email.
 `rails generate delivery_uncle:install`
 
 3. Start [Resque](https://github.com/resque/resque)  
-`be rake environment resque:work QUEUE='*'`
+`RAILS_ENV=[environment] be rake environment resque:work QUEUE='*'`
 
 ## Usage
 
@@ -25,6 +25,9 @@ DeliveryUncle (Rails Engine) that you can hire to manage outgoing email.
 
 2. Check status with mailer type with `DeliveryUncle::EmailRequest`
 `DeliveryUncle::EmailRequest.where(mailer: 'AccountMailer')`
+
+3. Mount engine routes in your rails app's `config/routes.rb`
+`mount DeliveryUncle::Engine => "/mails"`
 
 ## License
 
