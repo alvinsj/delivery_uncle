@@ -1,10 +1,11 @@
 # DeliveryUncle [![Code Climate](https://codeclimate.com/github/alvinsj/delivery_uncle.png)](https://codeclimate.com/github/alvinsj/delivery_uncle) [![Build Status](https://travis-ci.org/alvinsj/delivery_uncle.svg?branch=master)](https://travis-ci.org/alvinsj/delivery_uncle)
 
-DeliveryUncle (Rails Engine) that you can hire to manage outgoing email.
+DeliveryUncle (Rails Engine) that you can hire to manage outgoing email. It provides:
 
-- Provides a facade to manage various action_mailer.
-- Sending email in background (currently with Resque).
-- Provides an UI to manage(pause/retry) queued emails.
+- Service object to deliver action_mailer's mail message. i.e. `DeliveryUncle::Deliver`
+- Records of outgoing emails requests in database. i.e. `DeliveryUncle::EmailRequest`
+- Email sending in background by default (currently with Resque). 
+- Views to manage (e.g. block/unblock) outgoing emails.
 - .. etc
 
 ## Setup
@@ -20,14 +21,22 @@ DeliveryUncle (Rails Engine) that you can hire to manage outgoing email.
 
 ## Usage
 
-1. Send email in background with `DeliveryUncle::Deliver`  
+1. Send email with service object: `DeliveryUncle::Deliver`  
 `DeliveryUncle::Deliver.new(AccountMailer, :new_registration, user.email)`
 
-2. Check status with mailer type with `DeliveryUncle::EmailRequest`
+2. Check the email records (e.g. status) with the model: `DeliveryUncle::EmailRequest`
 `DeliveryUncle::EmailRequest.where(mailer: 'AccountMailer')`
 
-3. Mount engine routes in your rails app's `config/routes.rb`
+3. Mount views to your rails app in `config/routes.rb`  
 `mount DeliveryUncle::Engine => "/mails"`
+
+## Changes
+
+### v0.1.0
+- Save email request
+- Send email in background
+- Block/unblock/pause/retry outgoing emails in views
+
 
 ## License
 
