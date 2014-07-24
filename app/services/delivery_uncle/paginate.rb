@@ -9,6 +9,7 @@ module DeliveryUncle
       @params = params
       start = (@page-1) * @per_page 
       start = 0 if start < 0
+      @size = model.count
       @model = model.limit(@per_page).offset(start)
       self
     end
@@ -28,7 +29,7 @@ module DeliveryUncle
     end
 
     def end_of_page?
-      @page*@per_page > @model.count
+      @page*@per_page > @size
     end
   end
 end
