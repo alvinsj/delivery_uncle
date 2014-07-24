@@ -5,10 +5,10 @@ module DeliveryUncle
     end
     
     def page(model, params) 
-      @page = params[:page].present? ? param[:page] :  1
+      @page = params[:page].present? ? params[:page].to_i :  1
       @params = params
       start = (@page-1) * @per_page 
-      start = 1 if start < 1
+      start = 0 if start < 0
       @model = model.limit(@per_page).offset(start)
       self
     end
