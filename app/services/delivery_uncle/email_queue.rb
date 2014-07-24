@@ -4,6 +4,7 @@ module DeliveryUncle
       def queue(request)
         return if not_allowed?(request)
         
+        save_status(request, :enqueue)
         QueueRequest.new(request)
         save_status(request, :queued)
       end
