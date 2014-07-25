@@ -22,5 +22,6 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency "sqlite3", "~> 1.3"
   s.add_development_dependency "rspec-rails", "~> 2.14"
+  s.add_development_dependency "email_spec", "~> 1.6"
   s.add_development_dependency "resque_spec", "~> 0.15"
 end
