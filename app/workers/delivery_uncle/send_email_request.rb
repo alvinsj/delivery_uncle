@@ -1,6 +1,3 @@
-require 'resque-loner'
-require 'resque-history'
-
 module DeliveryUncle
   class SendEmailRequest
     @queue = "delivery_uncle:email_request"
