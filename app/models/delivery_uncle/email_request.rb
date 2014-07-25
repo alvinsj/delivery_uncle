@@ -5,7 +5,7 @@ module DeliveryUncle
     scope :with_mailer_method, ->(mailer, mailer_method) { where(mailer: mailer, mailer_method: mailer_method) }      
     
     def mail
-      ::Mail.new(mail_body)
+      @mail ||= ::Mail.new(mail_body)
     end
     
     def paused?
