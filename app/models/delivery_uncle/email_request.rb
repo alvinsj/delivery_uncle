@@ -17,8 +17,7 @@ module DeliveryUncle
     end
     
     def save_status!(status)
-      self.status = status
-      save
+      update_attribute(:status,status)
     end
     
     def self.mailers
