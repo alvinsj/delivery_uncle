@@ -16,6 +16,11 @@ module DeliveryUncle
       status == :sent || status == 'sent'
     end
     
+    def save_status!(status)
+      self.status = status
+      save
+    end
+    
     def self.mailers
       group(:mailer).order('mailer ASC').map(&:mailer)
     end

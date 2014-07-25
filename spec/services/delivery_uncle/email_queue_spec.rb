@@ -44,7 +44,7 @@ describe DeliveryUncle::EmailQueue do
     it 'should queue to background' do
       DeliveryUncle::EmailQueue.queue(email_request)
       expect(DeliveryUncle::SendEmailRequest).to have_queued(email_request.id)
-      expect(email_request.status).to eql(:queued)
+      expect(email_request.status).to eql(:enqueue)
     end
   end
 
@@ -54,7 +54,7 @@ describe DeliveryUncle::EmailQueue do
 
       DeliveryUncle::EmailQueue.retry(email_request)
       expect(DeliveryUncle::SendEmailRequest).to have_queued(email_request.id)
-      expect(email_request.status).to eql(:queued)
+      expect(email_request.status).to eql(:enqueue)
     end
   end
 end 

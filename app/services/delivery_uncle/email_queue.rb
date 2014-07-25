@@ -4,40 +4,30 @@ module DeliveryUncle
       def queue(request)
         return if not_allowed?(request)
         
-        save_status(request, :enqueue)
         QueueRequest.new(request)
-        save_status(request, :queued)
       end
 
       def pause(request)
         return if not_allowed?(request)
         
-        save_status(request, :paused)
+        request.save_status!(:paused)
       end
 
       def retry(request)
         return if not_allowed?(request)
         
-        save_status(request, :retrying)
         RetryRequest.new(request)
-        save_status(request, :queued)
       end
  
       def not_allowed?(request)
         return true if request.blank? || request.sent?
 
         if Activity.blocked_mailers.include?(request.mailer)
-          save_status(request, :blocked)
+          request.save_status!(:blocked)
           return true
         end
 
         return false
-      end
-     
-      private
-      def save_status(request, status)
-        request.status = status
-        request.save
       end
     end
     extend ClassMethods 
@@ -45,12 +35,20 @@ module DeliveryUncle
     protected
     class QueueRequest
       def initialize(request)
-        Resque.enqueue(DeliveryUncle::SendEmailRequest, request.id)
+        request.save_status!(:enqueue)
+        begin
+          Resque.enqueue(DeliveryUncle::SendEmailRequest, request.id)
+        rescue => e
+          Rails.logger.error e.message
+          Rails.logger.error e.backtrace.join("\n")
+          request.save_status!(:error_on_enqueue)
+        end
       end
     end
     
     class RetryRequest
       def initialize(request)
+        request.save_status!(:retrying)
         QueueRequest.new(request)
       end
     end  

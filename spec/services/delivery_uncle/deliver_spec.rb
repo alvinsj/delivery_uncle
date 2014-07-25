@@ -25,7 +25,7 @@ describe DeliveryUncle::Deliver do
     expect(delivery.request.mailer.to_s).to eql('TestMailer')
     expect(delivery.request.mailer_method.to_s).to eql('test_email_method')
     expect(delivery.request.mail.subject).to eql('test_email')
-    expect(delivery.request.status).to eql(:queued)
+    expect(delivery.request.status).to eql(:enqueue)
     
     DeliveryUncle::SendEmailRequest.should have_queued(delivery.request.id)
   end
