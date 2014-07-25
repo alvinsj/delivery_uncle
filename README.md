@@ -17,7 +17,7 @@ DeliveryUncle (Rails Engine) that you can hire to manage outgoing email. It prov
 `rails generate delivery_uncle:install`
 
 3. Start [Resque](https://github.com/resque/resque)  
-`RAILS_ENV=[environment] be rake environment resque:work QUEUE='*'`
+`rake environment resque:work QUEUE='*'`
 
 ## Usage
 
@@ -32,11 +32,13 @@ DeliveryUncle (Rails Engine) that you can hire to manage outgoing email. It prov
 
 ## Changes
 
-### v0.1.0
+### v0.1.2
 - Save email request
 - Send email in background
 - Block/unblock/pause/retry outgoing emails in views
 
+### v0.1.3
+- Remove record manipulation after enqueuing to background
 
 ## License
 

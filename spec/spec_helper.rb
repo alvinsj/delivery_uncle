@@ -3,6 +3,8 @@ require File.expand_path("../dummy/config/environment.rb",  __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
 require 'resque_spec'
+require "email_spec"
+
 Rails.backtrace_cleaner.remove_silencers!
 # Load support files
 Dir["#{File.dirname(__FILE__)}/support/**/*.rb"].each { |f| require f }
@@ -12,7 +14,9 @@ RSpec.configure do |config|
   config.infer_base_class_for_anonymous_controllers = false
   config.use_transactional_fixtures = true
   config.order = "random"
-  
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
+
   REDIS_PID = "#{Rails.root}/tmp/pids/redis-test.pid"
   REDIS_CACHE_PATH = "#{Rails.root}/tmp/cache/"
 
