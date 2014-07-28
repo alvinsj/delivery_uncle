@@ -20,7 +20,7 @@ describe DeliveryUncle::SendEmailRequest do
           default from: 'test@deliveryuncle.localhost'
       
           def test_email_method(subject)
-            mail(subject: subject, to: 'recepient@deliveryuncle.localhost')
+            mail(subject: subject, to: 'recepient@deliveryuncle.localhost', body: 'hello world')
           end
         end
       end
