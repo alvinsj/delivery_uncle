@@ -3,3 +3,4 @@
 pkg/
 *.pid
 *.sqlite3
+*.ruby-version
