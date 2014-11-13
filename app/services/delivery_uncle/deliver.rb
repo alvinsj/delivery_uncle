@@ -2,18 +2,8 @@ module DeliveryUncle
   class Deliver
     
     def initialize(mailer, mailer_method, *args)
-      mail = mailer.send(mailer_method, *args)
-      
-      raise 'mail with attachment is not supported yet' if mail.has_attachments? 
-      
-      @request = DeliveryUncle::EmailRequest.new  
-      @request.mail_body = mail.to_s
-      @request.mailer = mailer.to_s
-      @request.mailer_method = mailer_method
-      @request.status = :new
-      @request.mail_type = :deliver
-      @request.request_from = caller[1][/`.*'/][1..-2]
- 
+     
+      @request = DeliveryUncle::EmailRequest.create(mailer, mailer_method, *args)
       deliver(@request) if @request.save!
     end
     
