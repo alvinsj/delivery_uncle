@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    delivery_uncle (0.1.4)
+    delivery_uncle (0.1.5)
       rails (>= 3.2.12, < 5)
       resque (>= 1.21, < 2)
 
